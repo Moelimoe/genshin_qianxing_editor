@@ -1,0 +1,24 @@
+{
+  "instance_id": "level_pkg_20260113_193054_870462",
+  "name": "关卡实体",
+  "template_id": "level_pkg_20260113_193054_870462",
+  "position": [
+    0.0,
+    0.0,
+    0.0
+  ],
+  "rotation": [
+    0.0,
+    0.0,
+    0.0
+  ],
+  "override_variables": [],
+  "additional_graphs": [],
+  "additional_components": [],
+  "metadata": {
+    "is_level_entity": true,
+    "entity_type": "关卡"
+  },
+  "graph_variable_overrides": {},
+  "updated_at": "2026-01-13T19:30:54.870462"
+}
