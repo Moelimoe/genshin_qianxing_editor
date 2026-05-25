@@ -68,10 +68,10 @@ def build_victory(g, catalog):
     """胜利开关: 碰撞 → 获取变量 → ==1则胜利"""
     n_evt   = g.add_node("进入碰撞触发器时")
     n_player = g.add_node(259)  # 纯数据节点，无 flow 端口
-    n_get   = (g.add_node(50)  # type_id=50 服务端版本
+    n_get   = (g.add_node("获取自定义变量")  # verified → type_id=200016
         .set_param("目标实体", None)   # 后续连线
         .set_param("变量名", VAR_NAME))
-    n_eq    = (g.add_node(14)   # type_id=14 服务端版本
+    n_eq    = (g.add_node("是否相等")   # verified → type_id=200006
         .set_param("输入1", None)      # 后续连线
         .set_param("输入2", 1))
     n_win   = g.add_node("结算关卡").set_param("是否胜利", True)
@@ -103,7 +103,7 @@ def generate_level():
     _OUT.mkdir(parents=True, exist_ok=True)
 
     # 加载示例关卡资产，提取原始 entity entry（保留完整结构）
-    sample_level_path = Path('/mnt/h/myprojects/genshin_qianxing_editor/tools/live_sync/samples/export_examples/示例关卡资产.gia')
+    sample_level_path = Path(__file__).resolve().parents[1] / 'export_examples' / '示例关卡资产.gia'
     sample_num = load_gia_numeric(sample_level_path)
     sample_entries = get_entries(sample_num)
     

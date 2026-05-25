@@ -429,70 +429,119 @@ class LoadedLevel:
     
     @staticmethod
     def _varbase_to_value_static(varbase: Dict[str, Any]) -> Any:
-        """将 VarBase 转换为 Python 值（静态方法版本）"""
+        """将 VarBase 转换为 Python 值（静态方法版本）
+
+        支持两种 VarBase 格式：
+        - 格式A (legacy): {'1': var_type, '2': {'1': value}}
+        - 格式B (editor export): {'1': wire_tag, '2': 1, '4': {..., '100': {'1': var_type}}, '10X': value}
+
+        关键：var_type 从 field[4][100][1] 获取（格式B），
+        varbase['1'] 是 GIA wire tag，不是 VarType 枚举值。
+        """
         if not isinstance(varbase, dict):
             return None
-        
-        var_type = varbase.get('1')
-        value_field = varbase.get('2', {})
-        
-        # 处理字符串类型的特殊情况：value_field 可能是 binary_data 字符串
-        if var_type == VarType.Str:
-            if isinstance(value_field, str):
-                # value_field 本身就是 binary_data 字符串
-                if value_field.startswith('<binary_data>'):
-                    try:
-                        data = parse_binary_data_hex_text(value_field)
-                        return LoadedLevel._decode_length_delimited_string(data)
-                    except Exception:
-                        return value_field
-                return value_field
-            elif isinstance(value_field, dict):
-                binary_data = value_field.get('1', '')
-                if isinstance(binary_data, str) and binary_data.startswith('<binary_data>'):
-                    try:
-                        data = parse_binary_data_hex_text(binary_data)
-                        return LoadedLevel._decode_length_delimited_string(data)
-                    except Exception:
-                        return binary_data
-                return binary_data
+
+        # ── tag=10000: Int 类型的嵌套封装格式 ──
+        if varbase.get('1') == 10000:
+            inner = varbase.get('110', {}).get('2', {})
+            if isinstance(inner, dict):
+                return LoadedLevel._varbase_to_value_static(inner)
             return None
-        
-        # 其他类型：value_field 应该是 dict
-        if not isinstance(value_field, dict):
-            return None
-        
-        if var_type == VarType.Int:
-            return value_field.get('1')
-        elif var_type == VarType.Bol:
-            return bool(value_field.get('1'))
-        elif var_type == VarType.Flt:
-            bits = value_field.get('1', 0)
-            if isinstance(bits, int):
-                try:
-                    return struct.unpack('>f', struct.pack('>I', bits))[0]
-                except Exception:
-                    return float(bits)
-            return float(bits)
-        elif var_type == VarType.Vec:
-            # Vec 是三个 float
-            x_bits = value_field.get('1', 0)
-            y_bits = value_field.get('2', 0)
-            z_bits = value_field.get('3', 0)
-            try:
-                x = struct.unpack('>f', struct.pack('>I', x_bits))[0] if isinstance(x_bits, int) else 0.0
-                y = struct.unpack('>f', struct.pack('>I', y_bits))[0] if isinstance(y_bits, int) else 0.0
-                z = struct.unpack('>f', struct.pack('>I', z_bits))[0] if isinstance(z_bits, int) else 0.0
-                return (x, y, z)
-            except Exception:
-                return (0.0, 0.0, 0.0)
-        elif var_type == VarType.Ety:
-            return value_field.get('1')
-        elif var_type == VarType.Prefab:
-            return value_field.get('1')
+
+        field2 = varbase.get('2')
+        field4 = varbase.get('4')
+
+        # 判断格式
+        is_format_a = isinstance(field2, dict) and not isinstance(field4, dict)
+
+        if is_format_a:
+            # 格式A: var_type 在 field[1], value 在 field[2]['1']
+            var_type = varbase.get('1', 0)
+            raw_value = field2.get('1') if isinstance(field2, dict) else None
         else:
-            # 其他类型，尝试返回原始值
-            return value_field.get('1')
+            # 格式B: var_type 在 field[4][100][1]
+            type_desc = varbase.get('4', {})
+            if isinstance(type_desc, dict):
+                vt_info = type_desc.get('100', {})
+                var_type = vt_info.get('1', 0) if isinstance(vt_info, dict) else 0
+            else:
+                var_type = 0
+
+            # value_field_map: var_type → GIA field number
+            value_field_map = {
+                0: '102', 1: '101', 2: '101', 3: '102',
+                4: '106', 5: '104', 6: '105',
+                12: '107', 14: '106', 17: '101', 20: '101',
+            }
+            value_field = value_field_map.get(var_type, '102')
+            vdata = varbase.get(value_field)
+
+            if vdata is None:
+                return None
+            raw_value = vdata.get('1') if isinstance(vdata, dict) else vdata
+
+        if raw_value is None:
+            return None
+
+        # ── 按 var_type 解码 ──
+        if var_type == 6:  # Str
+            if isinstance(raw_value, str):
+                if raw_value.startswith('<binary_data'):
+                    try:
+                        data = parse_binary_data_hex_text(raw_value)
+                        return LoadedLevel._decode_length_delimited_string(data)
+                    except Exception:
+                        return raw_value
+                return raw_value
+            return str(raw_value)
+
+        elif var_type == 4:  # Bool
+            if isinstance(raw_value, str):
+                return False  # empty binary_data = False
+            return bool(raw_value)
+
+        elif var_type == 5:  # Float
+            if isinstance(raw_value, int):
+                try:
+                    return struct.unpack('>f', struct.pack('>I', raw_value))[0]
+                except Exception:
+                    return float(raw_value)
+            return float(raw_value) if raw_value else 0.0
+
+        elif var_type == 12:  # Vec
+            if isinstance(raw_value, dict):
+                try:
+                    x = struct.unpack('>f', struct.pack('>I', int(raw_value.get('1', 0))))[0]
+                    y = struct.unpack('>f', struct.pack('>I', int(raw_value.get('2', 0))))[0]
+                    z = struct.unpack('>f', struct.pack('>I', int(raw_value.get('3', 0))))[0]
+                    return (x, y, z)
+                except Exception:
+                    pass
+            elif isinstance(raw_value, str) and raw_value.startswith('<binary_data'):
+                try:
+                    data = parse_binary_data_hex_text(raw_value)
+                    if len(data) >= 12:
+                        x = struct.unpack('>f', data[0:4])[0]
+                        y = struct.unpack('>f', data[4:8])[0]
+                        z = struct.unpack('>f', data[8:12])[0]
+                        return (x, y, z)
+                except Exception:
+                    pass
+            return (0.0, 0.0, 0.0)
+
+        elif var_type in (1, 2, 3, 14, 17, 20, 21):  # Ety, GUID, Int, Enum, Faction, Cfg, Prefab
+            if isinstance(raw_value, str) and raw_value.startswith('<binary_data'):
+                return None  # empty value
+            try:
+                return int(raw_value)
+            except (TypeError, ValueError):
+                return raw_value
+
+        else:
+            # 其他类型返回原始值
+            if isinstance(raw_value, str) and raw_value.startswith('<binary_data'):
+                return None
+            return raw_value
 
 
 # ═══════════════════════════════════════════════════════════════

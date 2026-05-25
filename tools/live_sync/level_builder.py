@@ -108,6 +108,13 @@ def _build_var_base(var_type: int, value: Any, for_output: bool = False) -> Dict
                 '4': {'1': 1, '100': {'1': var_type}},
                 '106': {'1': 1},
             }
+        elif for_output:
+            # 输出引脚：仅声明类型，不含值字段（空 binary_data 会解码为"否"，造成误导）
+            # 参考编辑器导出的 GIA：是否相等(14) 的输出引脚不含 VarBase 值字段
+            return {
+                '1': 6, '2': 1,
+                '4': {'1': 1, '100': {'1': var_type}},
+            }
         else:
             # Bool=False: 使用空 binary_data（与编辑器导出格式一致）
             return {
@@ -122,6 +129,12 @@ def _build_var_base(var_type: int, value: Any, for_output: bool = False) -> Dict
                 '1': 6, '2': 1,
                 '4': {'1': 1, '100': {'1': var_type}},
                 '106': {'1': int(value)},
+            }
+        elif for_output:
+            # 输出引脚：仅声明类型，不含值字段
+            return {
+                '1': 6, '2': 1,
+                '4': {'1': 1, '100': {'1': var_type}},
             }
         else:
             return {
@@ -849,6 +862,8 @@ class GraphBuilder:
 
         # VarBase: 输入数据端口始终生成 VarBase（即使值为空），以声明类型和保持引脚索引。
         # 输出数据端口仅当被其他节点消费时才生成 VarBase（声明输出类型）。
+        # 对于 Bool 类型的输出引脚，_build_var_base 在 for_output=True 时省略值字段，
+        # 避免空值解码为"否"造成误导（参考 GIA 中是否相等的输出引脚不含值）。
         if not pin_def.is_flow:
             if pin_def.direction == "In":
                 # 输入数据端口：始终生成 VarBase（空值用 empty binary_data）

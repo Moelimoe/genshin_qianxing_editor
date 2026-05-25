@@ -15,6 +15,15 @@
 - **Python 环境**：`venv\Scripts\python.exe` (Python 3.10.13)
 - **运行命令**：`& 'h:\myprojects\genshin_qianxing_editor\venv\Scripts\python.exe' -X utf8 <script>`
 
+### CC 工具（Claude Code）
+
+| 信息 | 内容 |
+|------|------|
+| **路径** | `h:\tools\cc\` |
+| **调用方式** | `wsl python3 /mnt/h/tools/cc/cc.py -d /mnt/h/myprojects/genshin_qianxing_editor "指令"` |
+| **长任务** | `--bg` 后台 + `--wait` 等待结果 |
+| **会话策略** | 当前项目始终复用同一会话ID，保持上下文连续。仅当非本仓库任务或上下文明显过长时考虑新会话 |
+
 ### 当前方案
 
 **直接生成 .gil/.gia 文件**，绕过编辑器 UI，实现程序化关卡生成。
