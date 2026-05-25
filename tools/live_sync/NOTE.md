@@ -248,3 +248,19 @@ tools/live_sync/ <- 当前主工作区：资产注册表 + GIA 生成 + 声明�
 | `...\Resource\Json\Beyond\OfficialPrefab\` | 物件/造物配置 |
 | `...\Resource\Json\Beyond\Struct\` | 结构体定义 |
 | `...\Resource\Json\TextMap\CHS\` | 中文文本映射（加密） |
+
+---
+
+## 十、经验教训
+
+### ⚠️ 不要用 CC/SubAgent 执行 git 操作
+
+**事故**：2026-05-26，让 CC 修复测试回归时，CC 在 WSL 中执行了 `git stash` / `git reset` 等操作，导致 `.git` 目录丢失，本地所有 commit 历史丢失。
+
+**根因**：CC/sub-agent 运行在 WSL 环境，对 Windows 文件系统（NTFS）上的 git 仓库操作可能有兼容性问题。CC 遇到冲突后尝试 `git reset` 清理，结果删除了 `.git`。
+
+**教训**：
+1. **永远不要让 CC/sub-agent 执行 git 操作**（commit、stash、reset、rebase 等）
+2. 需要对比旧代码时，用 `git show HEAD~1:path` 等只读命令，或让 SOLO 本身执行
+3. 定期 push 到远端，确保远端有完整历史备份
+4. 如果必须让 CC 操作 git，先在本地备份 `.git` 目录
