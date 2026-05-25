@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BeyondAssistEditor GIA 测试包</title>
+    <style>
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; max-width: 1200px; margin: 0 auto; padding: 20px; }
+        h1 { color: #333; border-bottom: 2px solid #4CAF50; padding-bottom: 10px; }
+        h2 { color: #555; margin-top: 30px; }
+        .stats { background: #f5f5f5; padding: 15px; border-radius: 8px; margin: 20px 0; }
+        .stats strong { color: #4CAF50; font-size: 1.5em; }
+        table { width: 100%; border-collapse: collapse; margin: 20px 0; }
+        th, td { padding: 10px; text-align: left; border-bottom: 1px solid #ddd; }
+        th { background: #4CAF50; color: white; }
+        tr:hover { background: #f5f5f5; }
+        .file-link { color: #2196F3; text-decoration: none; }
+        .file-link:hover { text-decoration: underline; }
+        .warning { color: #ff9800; }
+        .category { display: inline-block; background: #e0e0e0; padding: 2px 8px; border-radius: 4px; font-size: 0.85em; }
+    </style>
+</head>
+<body>
+    <h1>🎮 BeyondAssistEditor GIA 测试包</h1>
+    
+    <div class="stats">
+        <p>📦 共 <strong>56</strong> 个测试用例</p>
+        <p>📁 GIA 文件位于: <code>GIA文件/</code></p>
+        <p>📊 可视化预览位于: <code>可视化预览/</code></p>
+    </div>
+
+    <h2>📋 测试用例清单</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>分类</th>
+                <th>文件名</th>
+                <th>说明</th>
+                <th>预览</th>
+                <th>GIA</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><span class="category">事件</span></td>
+                <td>v1_关卡开始时</td>
+                <td>事件节点-关卡开始</td>
+                <td><a class="file-link" href="可视化预览/v1_关卡开始时.html" target="_blank">🔍 预览</a></td>
+                <td><a class="file-link" href="GIA文件/v1_关卡开始时.gia">📄 GIA</a></td>
+            </tr>
+            <tr>
+                <td><span class="category">事件</span></td>
+                <td>v1_交互时</td>
+                <td>事件节点-交互触发</td>
+                <td><a class="file-link" href="可视化预览/v1_交互时.html" target="_blank">🔍 预览</a></td>
+                <td><a class="file-link" href="GIA文件/v1_交互时.gia">📄 GIA</a></td>
+            </tr>
+            <tr>
+                <td><span class="category">事件</span></td>
+                <td>v1_玩家进入触发器</td>
+                <td>事件节点-玩家进入</td>
+                <td><a class="file-link" href="可视化预览/v1_玩家进入触发器.html" target="_blank">🔍 预览</a></td>
+                <td><a class="file-link" href="GIA文件/v1_玩家进入触发器.gia">📄 GIA</a></td>
+            </tr>
+            <tr>
+                <td><span class="category">条件</span></td>
+                <td>v1_多分支</td>
+                <td>条件节点-多分支</td>
+                <td><a class="file-link" href="可视化预览/v1_多分支.html" target="_blank">🔍 预览</a></td>
+                <td><a class="file-link" href="GIA文件/v1_多分支.gia">📄 GIA</a></td>
+            </tr>
+            <tr>
+                <td><span class="category">条件</span></td>
+                <td>v1_比较整数</td>
+                <td>条件节点-比较整数</td>
+                <td><a class="file-link" href="可视化预览/v1_比较整数.html" target="_blank">🔍 预览</a></td>
+                <td><a class="file-link" href="GIA文件/v1_比较整数.gia">📄 GIA</a></td>
+            </tr>
+            <tr>
+                <td><span class="category">数学</span></td>
+                <td>v1_整数加法</td>
+                <td>数学节点-整数加法</td>
+                <td><a class="file-link" href="可视化预览/v1_整数加法.html" target="_blank">🔍 预览</a></td>
+                <td><a class="file-link" href="GIA文件/v1_整数加法.gia">📄 GIA</a></td>
+            </tr>
+            <tr>
+                <td><span class="category">数学</span></td>
+                <td>v1_随机整数</td>
+                <td>数学节点-随机整数</td>
+                <td><a class="file-link" href="可视化预览/v1_随机整数.html" target="_blank">🔍 预览</a></td>
+                <td><a class="file-link" href="GIA文件/v1_随机整数.gia">📄 GIA</a></td>
+            </tr>
+            <tr>
+                <td><span class="category">逻辑</span></td>
+                <td>v1_逻辑与</td>
+                <td>逻辑节点-逻辑与</td>
+                <td><a class="file-link" href="可视化预览/v1_逻辑与.html" target="_blank">🔍 预览</a></td>
+                <td><a class="file-link" href="GIA文件/v1_逻辑与.gia">📄 GIA</a></td>
+            </tr>
+            <tr>
+                <td><span class="category">实用</span></td>
+                <td>v1_日志输出</td>
+                <td>实用节点-日志输出</td>
+                <td><a class="file-link" href="可视化预览/v1_日志输出.html" target="_blank">🔍 预览</a></td>
+                <td><a class="file-link" href="GIA文件/v1_日志输出.gia">📄 GIA</a></td>
+            </tr>
+            <tr>
+                <td><span class="category">实用</span></td>
+                <td>v1_延迟</td>
+                <td>实用节点-延迟</td>
+                <td><a class="file-link" href="可视化预览/v1_延迟.html" target="_blank">🔍 预览</a></td>
+                <td><a class="file-link" href="GIA文件/v1_延迟.gia">📄 GIA</a></td>
+            </tr>
+            <tr>
+                <td><span class="category">动作</span></td>
+                <td>v1_移动实体</td>
+                <td>动作节点-移动实体</td>
+                <td><a class="file-link" href="可视化预览/v1_移动实体.html" target="_blank">🔍 预览</a></td>
+                <td><a class="file-link" href="GIA文件/v1_移动实体.gia">📄 GIA</a></td>
+            </tr>
+            <tr>
+                <td><span class="category">动作</span></td>
+                <td>v1_播放音效</td>
+                <td>动作节点-播放音效</td>
+                <td><a class="file-link" href="可视化预览/v1_播放音效.html" target="_blank">🔍 预览</a></td>
+                <td><a class="file-link" href="GIA文件/v1_播放音效.gia">📄 GIA</a></td>
+            </tr>
+            <tr>
+                <td><span class="category">动作</span></td>
+                <td>v1_播放特效</td>
+                <td>动作节点-播放特效</td>
+                <td><a class="file-link" href="可视化预览/v1_播放特效.html" target="_blank">🔍 预览</a></td>
+                <td><a class="file-link" href="GIA文件/v1_播放特效.gia">📄 GIA</a></td>
+            </tr>
+            <tr>
+                <td><span class="category">动作</span></td>
+                <td>v1_销毁实体</td>
+                <td>动作节点-销毁实体</td>
+                <td><a class="file-link" href="可视化预览/v1_销毁实体.html" target="_blank">🔍 预览</a></td>
+                <td><a class="file-link" href="GIA文件/v1_销毁实体.gia">📄 GIA</a></td>
+            </tr>
+            <tr>
+                <td><span class="category">变量</span></td>
+                <td>v1_设置全局变量</td>
+                <td>变量节点-全局变量</td>
+                <td><a class="file-link" href="可视化预览/v1_设置全局变量.html" target="_blank">🔍 预览</a></td>
+                <td><a class="file-link" href="GIA文件/v1_设置全局变量.gia">📄 GIA</a></td>
+            </tr>
+            <tr>
+                <td><span class="category">信号</span></td>
+                <td>v1_监听信号</td>
+                <td>信号节点-监听信号</td>
+                <td><a class="file-link" href="可视化预览/v1_监听信号.html" target="_blank">🔍 预览</a></td>
+                <td><a class="file-link" href="GIA文件/v1_监听信号.gia">📄 GIA</a></td>
+            </tr>
+            <tr>
+                <td><span class="category">信号</span></td>
+                <td>v1_发送信号</td>
+                <td>信号节点-发送信号</td>
+                <td><a class="file-link" href="可视化预览/v1_发送信号.html" target="_blank">🔍 预览</a></td>
+                <td><a class="file-link" href="GIA文件/v1_发送信号.gia">📄 GIA</a></td>
+            </tr>
+            <tr>
+                <td><span class="category">容器</span></td>
+                <td>v1_拼装列表</td>
+                <td>列表节点-拼装列表</td>
+                <td><a class="file-link" href="可视化预览/v1_拼装列表.html" target="_blank">🔍 预览</a></td>
+                <td><a class="file-link" href="GIA文件/v1_拼装列表.gia">📄 GIA</a></td>
+            </tr>
+            <tr>
+                <td><span class="category">容器</span></td>
+                <td>v1_拼装字典</td>
+                <td>字典节点-拼装字典</td>
+                <td><a class="file-link" href="可视化预览/v1_拼装字典.html" target="_blank">🔍 预览</a></td>
+                <td><a class="file-link" href="GIA文件/v1_拼装字典.gia">📄 GIA</a></td>
+            </tr>
+            <tr>
+                <td><span class="category">元件</span></td>
+                <td>v1_创建元件</td>
+                <td>元件节点-创建元件</td>
+                <td><a class="file-link" href="可视化预览/v1_创建元件.html" target="_blank">🔍 预览</a></td>
+                <td><a class="file-link" href="GIA文件/v1_创建元件.gia">📄 GIA</a></td>
+            </tr>
+            <tr>
+                <td><span class="category">实用</span></td>
+                <td>v1_获取实体位置</td>
+                <td>查询节点-获取位置</td>
+                <td><a class="file-link" href="可视化预览/v1_获取实体位置.html" target="_blank">🔍 预览</a></td>
+                <td><a class="file-link" href="GIA文件/v1_获取实体位置.gia">📄 GIA</a></td>
+            </tr>
+            <tr>
+                <td><span class="category">实用</span></td>
+                <td>v1_获取玩家实体</td>
+                <td>查询节点-获取玩家</td>
+                <td><a class="file-link" href="可视化预览/v1_获取玩家实体.html" target="_blank">🔍 预览</a></td>
+                <td><a class="file-link" href="GIA文件/v1_获取玩家实体.gia">📄 GIA</a></td>
+            </tr>
+            <tr>
+                <td><span class="category">控制</span></td>
+                <td>v1_只执行一次</td>
+                <td>控制节点-只执行一次</td>
+                <td><a class="file-link" href="可视化预览/v1_只执行一次.html" target="_blank">🔍 预览</a></td>
+                <td><a class="file-link" href="GIA文件/v1_只执行一次.gia">📄 GIA</a></td>
+            </tr>
+            <tr>
+                <td><span class="category">新增</span></td>
+                <td>v1b_双分支</td>
+                <td>新增-双分支</td>
+                <td><a class="file-link" href="可视化预览/v1b_双分支.html" target="_blank">🔍 预览</a></td>
+                <td><a class="file-link" href="GIA文件/v1b_双分支.gia">📄 GIA</a></td>
+            </tr>
+            <tr>
+                <td><span class="category">新增</span></td>
+                <td>v1b_是否相等</td>
+                <td>新增-是否相等</td>
+                <td><a class="file-link" href="可视化预览/v1b_是否相等.html" target="_blank">🔍 预览</a></td>
+                <td><a class="file-link" href="GIA文件/v1b_是否相等.gia">📄 GIA</a></td>
+            </tr>
+            <tr>
+                <td><span class="category">新增</span></td>
+                <td>v1b_打印字符串</td>
+                <td>新增-打印字符串</td>
+                <td><a class="file-link" href="可视化预览/v1b_打印字符串.html" target="_blank">🔍 预览</a></td>
+                <td><a class="file-link" href="GIA文件/v1b_打印字符串.gia">📄 GIA</a></td>
+            </tr>
+            <tr>
+                <td><span class="category">新增</span></td>
+                <td>v1b_创建实体</td>
+                <td>新增-创建实体</td>
+                <td><a class="file-link" href="可视化预览/v1b_创建实体.html" target="_blank">🔍 预览</a></td>
+                <td><a class="file-link" href="GIA文件/v1b_创建实体.gia">📄 GIA</a></td>
+            </tr>
+            <tr>
+                <td><span class="category">新增</span></td>
+                <td>v1b_实体创建时</td>
+                <td>新增-实体创建时</td>
+                <td><a class="file-link" href="可视化预览/v1b_实体创建时.html" target="_blank">🔍 预览</a></td>
+                <td><a class="file-link" href="GIA文件/v1b_实体创建时.gia">📄 GIA</a></td>
+            </tr>
+            <tr>
+                <td><span class="category">新增</span></td>
+                <td>v1b_启动定时器</td>
+                <td>新增-启动定时器</td>
+                <td><a class="file-link" href="可视化预览/v1b_启动定时器.html" target="_blank">🔍 预览</a></td>
+                <td><a class="file-link" href="GIA文件/v1b_启动定时器.gia">📄 GIA</a></td>
+            </tr>
+            <tr>
+                <td><span class="category">向量</span></td>
+                <td>v1b_创建三维向量</td>
+                <td>新增-三维向量</td>
+                <td><a class="file-link" href="可视化预览/v1b_创建三维向量.html" target="_blank">🔍 预览</a></td>
+                <td><a class="file-link" href="GIA文件/v1b_创建三维向量.gia">📄 GIA</a></td>
+            </tr>
+            <tr>
+                <td><span class="category">新增</span></td>
+                <td>v1b_发起攻击</td>
+                <td>新增-发起攻击</td>
+                <td><a class="file-link" href="可视化预览/v1b_发起攻击.html" target="_blank">🔍 预览</a></td>
+                <td><a class="file-link" href="GIA文件/v1b_发起攻击.gia">📄 GIA</a></td>
+            </tr>
+            <tr>
+                <td><span class="category">新增</span></td>
+                <td>v1b_复苏角色</td>
+                <td>新增-复苏角色</td>
+                <td><a class="file-link" href="可视化预览/v1b_复苏角色.html" target="_blank">🔍 预览</a></td>
+                <td><a class="file-link" href="GIA文件/v1b_复苏角色.gia">📄 GIA</a></td>
+            </tr>
+            <tr>
+                <td><span class="category">实用</span></td>
+                <td>v1b_列表是否包含该值</td>
+                <td>新增-列表查询</td>
+                <td><a class="file-link" href="可视化预览/v1b_列表是否包含该值.html" target="_blank">🔍 预览</a></td>
+                <td><a class="file-link" href="GIA文件/v1b_列表是否包含该值.gia">📄 GIA</a></td>
+            </tr>
+            <tr>
+                <td><span class="category">循环</span></td>
+                <td>v1c_有限循环</td>
+                <td>循环-有限循环</td>
+                <td><a class="file-link" href="可视化预览/v1c_有限循环.html" target="_blank">🔍 预览</a></td>
+                <td><a class="file-link" href="GIA文件/v1c_有限循环.gia">📄 GIA</a></td>
+            </tr>
+            <tr>
+                <td><span class="category">循环</span></td>
+                <td>v1c_跳出循环</td>
+                <td>循环-跳出循环</td>
+                <td><a class="file-link" href="可视化预览/v1c_跳出循环.html" target="_blank">🔍 预览</a></td>
+                <td><a class="file-link" href="GIA文件/v1c_跳出循环.gia">📄 GIA</a></td>
+            </tr>
+            <tr>
+                <td><span class="category">向量</span></td>
+                <td>v1c_三维向量加法</td>
+                <td>向量-向量加法</td>
+                <td><a class="file-link" href="可视化预览/v1c_三维向量加法.html" target="_blank">🔍 预览</a></td>
+                <td><a class="file-link" href="GIA文件/v1c_三维向量加法.gia">📄 GIA</a></td>
+            </tr>
+            <tr>
+                <td><span class="category">向量</span></td>
+                <td>v1c_三维向量减法</td>
+                <td>向量-向量减法</td>
+                <td><a class="file-link" href="可视化预览/v1c_三维向量减法.html" target="_blank">🔍 预览</a></td>
+                <td><a class="file-link" href="GIA文件/v1c_三维向量减法.gia">📄 GIA</a></td>
+            </tr>
+            <tr>
+                <td><span class="category">向量</span></td>
+                <td>v1c_拆分三维向量</td>
+                <td>向量-拆分向量</td>
+                <td><a class="file-link" href="可视化预览/v1c_拆分三维向量.html" target="_blank">🔍 预览</a></td>
+                <td><a class="file-link" href="GIA文件/v1c_拆分三维向量.gia">📄 GIA</a></td>
+            </tr>
+            <tr>
+                <td><span class="category">Client</span></td>
+                <td>v1c_节点图开始</td>
+                <td>Client-节点图开始</td>
+                <td><a class="file-link" href="可视化预览/v1c_节点图开始.html" target="_blank">🔍 预览</a></td>
+                <td><a class="file-link" href="GIA文件/v1c_节点图开始.gia">📄 GIA</a></td>
+            </tr>
+            <tr>
+                <td><span class="category">Client</span></td>
+                <td>v1c_筛选球体范围内的实体列表</td>
+                <td>Client-球体筛选</td>
+                <td><a class="file-link" href="可视化预览/v1c_筛选球体范围内的实体列表.html" target="_blank">🔍 预览</a></td>
+                <td><a class="file-link" href="GIA文件/v1c_筛选球体范围内的实体列表.gia">📄 GIA</a></td>
+            </tr>
+            <tr>
+                <td><span class="category">扩展</span></td>
+                <td>v1d_结算关卡</td>
+                <td>深度-结算关卡</td>
+                <td><a class="file-link" href="可视化预览/v1d_结算关卡.html" target="_blank">🔍 预览</a></td>
+                <td><a class="file-link" href="GIA文件/v1d_结算关卡.gia">📄 GIA</a></td>
+            </tr>
+            <tr>
+                <td><span class="category">事件</span></td>
+                <td>v1d_实体移除_销毁时</td>
+                <td>深度-实体销毁事件</td>
+                <td><a class="file-link" href="可视化预览/v1d_实体移除_销毁时.html" target="_blank">🔍 预览</a></td>
+                <td><a class="file-link" href="GIA文件/v1d_实体移除_销毁时.gia">📄 GIA</a></td>
+            </tr>
+            <tr>
+                <td><span class="category">事件</span></td>
+                <td>v1d_定时器触发时</td>
+                <td>深度-定时器事件</td>
+                <td><a class="file-link" href="可视化预览/v1d_定时器触发时.html" target="_blank">🔍 预览</a></td>
+                <td><a class="file-link" href="GIA文件/v1d_定时器触发时.gia">📄 GIA</a></td>
+            </tr>
+            <tr>
+                <td><span class="category">扩展</span></td>
+                <td>v1d_损失生命</td>
+                <td>深度-损失生命</td>
+                <td><a class="file-link" href="可视化预览/v1d_损失生命.html" target="_blank">🔍 预览</a></td>
+                <td><a class="file-link" href="GIA文件/v1d_损失生命.gia">📄 GIA</a></td>
+            </tr>
+            <tr>
+                <td><span class="category">扩展</span></td>
+                <td>v1d_直接恢复生命</td>
+                <td>深度-恢复生命</td>
+                <td><a class="file-link" href="可视化预览/v1d_直接恢复生命.html" target="_blank">🔍 预览</a></td>
+                <td><a class="file-link" href="GIA文件/v1d_直接恢复生命.gia">📄 GIA</a></td>
+            </tr>
+            <tr>
+                <td><span class="category">实用</span></td>
+                <td>v1d_以GUID查询实体</td>
+                <td>深度-GUID查询</td>
+                <td><a class="file-link" href="可视化预览/v1d_以GUID查询实体.html" target="_blank">🔍 预览</a></td>
+                <td><a class="file-link" href="GIA文件/v1d_以GUID查询实体.gia">📄 GIA</a></td>
+            </tr>
+            <tr>
+                <td><span class="category">扩展</span></td>
+                <td>v1d_获取预设状态</td>
+                <td>深度-获取预设状态</td>
+                <td><a class="file-link" href="可视化预览/v1d_获取预设状态.html" target="_blank">🔍 预览</a></td>
+                <td><a class="file-link" href="GIA文件/v1d_获取预设状态.gia">📄 GIA</a></td>
+            </tr>
+            <tr>
+                <td><span class="category">扩展</span></td>
+                <td>v1d_设置预设状态</td>
+                <td>深度-设置预设状态</td>
+                <td><a class="file-link" href="可视化预览/v1d_设置预设状态.html" target="_blank">🔍 预览</a></td>
+                <td><a class="file-link" href="GIA文件/v1d_设置预设状态.gia">📄 GIA</a></td>
+            </tr>
+            <tr>
+                <td><span class="category">事件</span></td>
+                <td>v2_事件_to_动作</td>
+                <td>组合-事件→动作</td>
+                <td><a class="file-link" href="可视化预览/v2_事件_to_动作.html" target="_blank">🔍 预览</a></td>
+                <td><a class="file-link" href="GIA文件/v2_事件_to_动作.gia">📄 GIA</a></td>
+            </tr>
+            <tr>
+                <td><span class="category">事件</span></td>
+                <td>v2_事件_to_分支_to_动作</td>
+                <td>组合-事件→分支→动作</td>
+                <td><a class="file-link" href="可视化预览/v2_事件_to_分支_to_动作.html" target="_blank">🔍 预览</a></td>
+                <td><a class="file-link" href="GIA文件/v2_事件_to_分支_to_动作.gia">📄 GIA</a></td>
+            </tr>
+            <tr>
+                <td><span class="category">组合</span></td>
+                <td>v2_随机+分支</td>
+                <td>组合-随机→分支</td>
+                <td><a class="file-link" href="可视化预览/v2_随机+分支.html" target="_blank">🔍 预览</a></td>
+                <td><a class="file-link" href="GIA文件/v2_随机+分支.gia">📄 GIA</a></td>
+            </tr>
+            <tr>
+                <td><span class="category">组合</span></td>
+                <td>v2_延迟执行</td>
+                <td>组合-延迟执行</td>
+                <td><a class="file-link" href="可视化预览/v2_延迟执行.html" target="_blank">🔍 预览</a></td>
+                <td><a class="file-link" href="GIA文件/v2_延迟执行.gia">📄 GIA</a></td>
+            </tr>
+            <tr>
+                <td><span class="category">组合</span></td>
+                <td>v2_获取玩家+移动</td>
+                <td>组合-获取玩家→移动</td>
+                <td><a class="file-link" href="可视化预览/v2_获取玩家+移动.html" target="_blank">🔍 预览</a></td>
+                <td><a class="file-link" href="GIA文件/v2_获取玩家+移动.gia">📄 GIA</a></td>
+            </tr>
+            <tr>
+                <td><span class="category">实体</span></td>
+                <td>v3_coin</td>
+                <td>实体模板-金币</td>
+                <td><a class="file-link" href="可视化预览/v3_coin.html" target="_blank">🔍 预览</a></td>
+                <td><a class="file-link" href="GIA文件/v3_coin.gia">📄 GIA</a></td>
+            </tr>
+            <tr>
+                <td><span class="category">实体</span></td>
+                <td>v3_goblet</td>
+                <td>实体模板-酒杯</td>
+                <td><a class="file-link" href="可视化预览/v3_goblet.html" target="_blank">🔍 预览</a></td>
+                <td><a class="file-link" href="GIA文件/v3_goblet.gia">📄 GIA</a></td>
+            </tr>
+            <tr>
+                <td><span class="category">实体</span></td>
+                <td>v3_key</td>
+                <td>实体模板-钥匙</td>
+                <td><a class="file-link" href="可视化预览/v3_key.html" target="_blank">🔍 预览</a></td>
+                <td><a class="file-link" href="GIA文件/v3_key.gia">📄 GIA</a></td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h2>⚠️ 注意事项</h2>
+    <ul>
+        <li><strong>type_id 冲突</strong>：部分动作节点（移动实体、播放音效等）的 type_id 可能与编辑器中的真实 ID 冲突</li>
+        <li><strong>Client 节点</strong>：部分节点是 Client 专用，可能无法在 Server 节点图中使用</li>
+        <li><strong>测试建议</strong>：先测试简单的单节点 GIA，再测试复杂的组合 GIA</li>
+    </ul>
+
+    <h2>📖 使用说明</h2>
+    <ol>
+        <li>打开 BeyondAssistEditor</li>
+        <li>在物件面板创建对应类型的物件（如金币、酒杯）</li>
+        <li>在物件属性中找到「节点图」字段</li>
+        <li>导入本目录中的 .gia 文件</li>
+        <li>验证节点图是否正确显示</li>
+    </ol>
+
+    <hr>
+    <p style="color: #888; font-size: 0.9em;">测试包生成时间：2026-05-20</p>
+</body>
+</html>

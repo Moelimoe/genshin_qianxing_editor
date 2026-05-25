@@ -1,0 +1,1062 @@
+[
+  {
+    "type_id": 3,
+    "name": "多分支",
+    "category": "condition",
+    "description": "根据控制表达式（整数/字符串）的值匹配不同分支路径。默认展示「默认」出端口，可按需扩展更多分支",
+    "deprecated": false,
+    "input_count": 2,
+    "output_count": 1,
+    "has_node_params": false
+  },
+  {
+    "type_id": 18,
+    "name": "获取局部变量",
+    "category": "variable",
+    "description": "读取当前作用域的局部变量值",
+    "deprecated": false,
+    "input_count": 1,
+    "output_count": 1,
+    "has_node_params": false
+  },
+  {
+    "type_id": 169,
+    "name": "拼装列表",
+    "category": "action",
+    "description": "将多个元素拼装成一个列表，元素数量动态可变",
+    "deprecated": false,
+    "input_count": 2,
+    "output_count": 2,
+    "has_node_params": false
+  },
+  {
+    "type_id": 1788,
+    "name": "拼装字典",
+    "category": "action",
+    "description": "将键值对拼装成字典，键值对数量动态可变",
+    "deprecated": false,
+    "input_count": 3,
+    "output_count": 2,
+    "has_node_params": false
+  },
+  {
+    "type_id": 252,
+    "name": "创建元件",
+    "category": "action",
+    "description": "根据元件ID创建一个实体",
+    "deprecated": false,
+    "input_count": 8,
+    "output_count": 2,
+    "has_node_params": false
+  },
+  {
+    "type_id": 300000,
+    "name": "发送信号",
+    "category": "action",
+    "description": "向服务器节点图发送信号",
+    "deprecated": false,
+    "input_count": 1,
+    "output_count": 1,
+    "has_node_params": true
+  },
+  {
+    "type_id": 300001,
+    "name": "监听信号",
+    "category": "event",
+    "description": "监听指定信号并在收到时触发。节点参数：信号名(Str)。出参：事件源实体/事件源GUID/信号来源实体",
+    "deprecated": false,
+    "input_count": 0,
+    "output_count": 4,
+    "has_node_params": true
+  },
+  {
+    "type_id": 100001,
+    "name": "关卡开始时",
+    "category": "event",
+    "description": "当关卡开始时触发",
+    "deprecated": false,
+    "input_count": 0,
+    "output_count": 1,
+    "has_node_params": false
+  },
+  {
+    "type_id": 100002,
+    "name": "玩家进入触发器",
+    "category": "event",
+    "description": "当玩家进入触发器区域时触发",
+    "deprecated": false,
+    "input_count": 1,
+    "output_count": 2,
+    "has_node_params": false
+  },
+  {
+    "type_id": 100003,
+    "name": "实体碰撞时",
+    "category": "event",
+    "description": "当实体发生碰撞时触发",
+    "deprecated": false,
+    "input_count": 1,
+    "output_count": 2,
+    "has_node_params": false
+  },
+  {
+    "type_id": 100004,
+    "name": "交互时",
+    "category": "event",
+    "description": "[已弃用] 当玩家与实体交互时触发（沙箱中找不到此节点，可能已改名）",
+    "deprecated": true,
+    "input_count": 1,
+    "output_count": 2,
+    "has_node_params": false
+  },
+  {
+    "type_id": 69,
+    "name": "销毁实体",
+    "category": "action",
+    "description": "销毁指定的实体",
+    "deprecated": false,
+    "input_count": 2,
+    "output_count": 1,
+    "has_node_params": false
+  },
+  {
+    "type_id": 200002,
+    "name": "移动实体",
+    "category": "action",
+    "description": "将实体移动到指定位置",
+    "deprecated": false,
+    "input_count": 3,
+    "output_count": 1,
+    "has_node_params": false
+  },
+  {
+    "type_id": 200003,
+    "name": "设置实体可见性",
+    "category": "action",
+    "description": "设置实体是否可见",
+    "deprecated": false,
+    "input_count": 3,
+    "output_count": 1,
+    "has_node_params": false
+  },
+  {
+    "type_id": 200004,
+    "name": "播放动画",
+    "category": "action",
+    "description": "在实体上播放指定动画",
+    "deprecated": false,
+    "input_count": 3,
+    "output_count": 1,
+    "has_node_params": false
+  },
+  {
+    "type_id": 200005,
+    "name": "播放特效",
+    "category": "action",
+    "description": "在指定位置播放特效",
+    "deprecated": false,
+    "input_count": 3,
+    "output_count": 1,
+    "has_node_params": false
+  },
+  {
+    "type_id": 200006,
+    "name": "播放音效",
+    "category": "action",
+    "description": "播放指定音效",
+    "deprecated": false,
+    "input_count": 2,
+    "output_count": 1,
+    "has_node_params": false
+  },
+  {
+    "type_id": 288,
+    "name": "传送玩家",
+    "category": "action",
+    "description": "将玩家传送到指定位置",
+    "deprecated": false,
+    "input_count": 2,
+    "output_count": 1,
+    "has_node_params": false
+  },
+  {
+    "type_id": 200008,
+    "name": "添加道具",
+    "category": "action",
+    "description": "给玩家添加道具",
+    "deprecated": false,
+    "input_count": 3,
+    "output_count": 1,
+    "has_node_params": false
+  },
+  {
+    "type_id": 400001,
+    "name": "比较整数",
+    "category": "condition",
+    "description": "比较两个整数的大小关系",
+    "deprecated": false,
+    "input_count": 3,
+    "output_count": 3,
+    "has_node_params": false
+  },
+  {
+    "type_id": 400002,
+    "name": "比较浮点数",
+    "category": "condition",
+    "description": "比较两个浮点数的大小关系",
+    "deprecated": false,
+    "input_count": 3,
+    "output_count": 3,
+    "has_node_params": false
+  },
+  {
+    "type_id": 400003,
+    "name": "是否为空",
+    "category": "condition",
+    "description": "检查实体是否为空（不存在）",
+    "deprecated": false,
+    "input_count": 2,
+    "output_count": 2,
+    "has_node_params": false
+  },
+  {
+    "type_id": 400004,
+    "name": "随机概率",
+    "category": "condition",
+    "description": "根据概率随机选择分支",
+    "deprecated": false,
+    "input_count": 2,
+    "output_count": 2,
+    "has_node_params": false
+  },
+  {
+    "type_id": 19,
+    "name": "设置局部变量",
+    "category": "variable",
+    "description": "设置当前作用域的局部变量值",
+    "deprecated": false,
+    "input_count": 3,
+    "output_count": 1,
+    "has_node_params": false
+  },
+  {
+    "type_id": 500002,
+    "name": "获取全局变量",
+    "category": "variable",
+    "description": "读取全局变量的值",
+    "deprecated": false,
+    "input_count": 1,
+    "output_count": 1,
+    "has_node_params": false
+  },
+  {
+    "type_id": 500003,
+    "name": "设置全局变量",
+    "category": "variable",
+    "description": "设置全局变量的值",
+    "deprecated": false,
+    "input_count": 3,
+    "output_count": 1,
+    "has_node_params": false
+  },
+  {
+    "type_id": 600001,
+    "name": "整数加法",
+    "category": "math",
+    "description": "两个整数相加",
+    "deprecated": false,
+    "input_count": 2,
+    "output_count": 1,
+    "has_node_params": false
+  },
+  {
+    "type_id": 600002,
+    "name": "整数减法",
+    "category": "math",
+    "description": "两个整数相减",
+    "deprecated": false,
+    "input_count": 2,
+    "output_count": 1,
+    "has_node_params": false
+  },
+  {
+    "type_id": 600003,
+    "name": "整数乘法",
+    "category": "math",
+    "description": "两个整数相乘",
+    "deprecated": false,
+    "input_count": 2,
+    "output_count": 1,
+    "has_node_params": false
+  },
+  {
+    "type_id": 600004,
+    "name": "整数除法",
+    "category": "math",
+    "description": "两个整数相除",
+    "deprecated": false,
+    "input_count": 2,
+    "output_count": 1,
+    "has_node_params": false
+  },
+  {
+    "type_id": 600005,
+    "name": "浮点数加法",
+    "category": "math",
+    "description": "两个浮点数相加",
+    "deprecated": false,
+    "input_count": 2,
+    "output_count": 1,
+    "has_node_params": false
+  },
+  {
+    "type_id": 600006,
+    "name": "随机整数",
+    "category": "math",
+    "description": "生成指定范围内的随机整数",
+    "deprecated": false,
+    "input_count": 2,
+    "output_count": 1,
+    "has_node_params": false
+  },
+  {
+    "type_id": 700001,
+    "name": "逻辑与",
+    "category": "logic",
+    "description": "逻辑与运算",
+    "deprecated": false,
+    "input_count": 2,
+    "output_count": 1,
+    "has_node_params": false
+  },
+  {
+    "type_id": 700002,
+    "name": "逻辑或",
+    "category": "logic",
+    "description": "逻辑或运算",
+    "deprecated": false,
+    "input_count": 2,
+    "output_count": 1,
+    "has_node_params": false
+  },
+  {
+    "type_id": 700003,
+    "name": "逻辑非",
+    "category": "logic",
+    "description": "逻辑非运算",
+    "deprecated": false,
+    "input_count": 1,
+    "output_count": 1,
+    "has_node_params": false
+  },
+  {
+    "type_id": 800001,
+    "name": "延迟",
+    "category": "utility",
+    "description": "延迟指定时间后继续执行",
+    "deprecated": false,
+    "input_count": 2,
+    "output_count": 1,
+    "has_node_params": false
+  },
+  {
+    "type_id": 800002,
+    "name": "只执行一次",
+    "category": "utility",
+    "description": "只在第一次被触发时执行",
+    "deprecated": false,
+    "input_count": 1,
+    "output_count": 1,
+    "has_node_params": false
+  },
+  {
+    "type_id": 800003,
+    "name": "日志输出",
+    "category": "utility",
+    "description": "输出日志信息",
+    "deprecated": false,
+    "input_count": 2,
+    "output_count": 1,
+    "has_node_params": false
+  },
+  {
+    "type_id": 800004,
+    "name": "获取玩家实体",
+    "category": "utility",
+    "description": "获取当前玩家实体",
+    "deprecated": false,
+    "input_count": 0,
+    "output_count": 1,
+    "has_node_params": false
+  },
+  {
+    "type_id": 200030,
+    "name": "获取实体位置",
+    "category": "utility",
+    "description": "获取实体的当前位置",
+    "deprecated": false,
+    "input_count": 1,
+    "output_count": 1,
+    "has_node_params": false
+  },
+  {
+    "type_id": 1,
+    "name": "打印字符串",
+    "category": "utility",
+    "description": "在日志中打印字符串信息",
+    "deprecated": false,
+    "input_count": 2,
+    "output_count": 1,
+    "has_node_params": false
+  },
+  {
+    "type_id": 200056,
+    "name": "双分支",
+    "category": "condition",
+    "description": "根据布尔条件分支（客户端版本）",
+    "deprecated": false,
+    "input_count": 1,
+    "output_count": 2,
+    "has_node_params": false
+  },
+  {
+    "type_id": 14,
+    "name": "是否相等",
+    "category": "condition",
+    "description": "比较任意两个值是否相等，返回布尔结果",
+    "deprecated": false,
+    "input_count": 2,
+    "output_count": 1,
+    "has_node_params": false
+  },
+  {
+    "type_id": 22,
+    "name": "设置自定义变量",
+    "category": "variable",
+    "description": "设置自定义作用域的变量值",
+    "deprecated": false,
+    "input_count": 3,
+    "output_count": 1,
+    "has_node_params": false
+  },
+  {
+    "type_id": 50,
+    "name": "获取自定义变量",
+    "category": "variable",
+    "description": "读取自定义作用域的变量值",
+    "deprecated": false,
+    "input_count": 1,
+    "output_count": 1,
+    "has_node_params": false
+  },
+  {
+    "type_id": 70,
+    "name": "创建实体",
+    "category": "action",
+    "description": "根据GUID创建实体。要求预先将其布设在场景内",
+    "deprecated": false,
+    "input_count": 3,
+    "output_count": 1,
+    "has_node_params": false
+  },
+  {
+    "type_id": 71,
+    "name": "实体创建时",
+    "category": "event",
+    "description": "当实体被创建时触发",
+    "deprecated": false,
+    "input_count": 1,
+    "output_count": 1,
+    "has_node_params": false
+  },
+  {
+    "type_id": 73,
+    "name": "获取自身实体",
+    "category": "utility",
+    "description": "获取当前执行上下文的自身实体",
+    "deprecated": false,
+    "input_count": 0,
+    "output_count": 1,
+    "has_node_params": false
+  },
+  {
+    "type_id": 79,
+    "name": "启动定时器",
+    "category": "utility",
+    "description": "启动一个定时器，时间到后触发后续逻辑",
+    "deprecated": false,
+    "input_count": 2,
+    "output_count": 1,
+    "has_node_params": false
+  },
+  {
+    "type_id": 114,
+    "name": "列表是否包含该值",
+    "category": "condition",
+    "description": "检查列表中是否包含指定的值",
+    "deprecated": false,
+    "input_count": 2,
+    "output_count": 1,
+    "has_node_params": false
+  },
+  {
+    "type_id": 135,
+    "name": "对列表插入值",
+    "category": "action",
+    "description": "向列表中指定位置插入一个值",
+    "deprecated": false,
+    "input_count": 4,
+    "output_count": 1,
+    "has_node_params": false
+  },
+  {
+    "type_id": 160,
+    "name": "对列表修改值",
+    "category": "action",
+    "description": "修改列表中指定索引位置的元素",
+    "deprecated": false,
+    "input_count": 4,
+    "output_count": 1,
+    "has_node_params": false
+  },
+  {
+    "type_id": 225,
+    "name": "创建三维向量",
+    "category": "math",
+    "description": "通过三个浮点数分量创建三维向量 (x, y, z)",
+    "deprecated": false,
+    "input_count": 3,
+    "output_count": 1,
+    "has_node_params": false
+  },
+  {
+    "type_id": 227,
+    "name": "逻辑或运算",
+    "category": "logic",
+    "description": "对两个布尔值进行逻辑或运算",
+    "deprecated": false,
+    "input_count": 2,
+    "output_count": 1,
+    "has_node_params": false
+  },
+  {
+    "type_id": 279,
+    "name": "复苏角色",
+    "category": "action",
+    "description": "复活一个已死亡的角色",
+    "deprecated": false,
+    "input_count": 2,
+    "output_count": 1,
+    "has_node_params": false
+  },
+  {
+    "type_id": 303,
+    "name": "发起攻击",
+    "category": "action",
+    "description": "对目标发起攻击",
+    "deprecated": false,
+    "input_count": 3,
+    "output_count": 1,
+    "has_node_params": false
+  },
+  {
+    "type_id": 311,
+    "name": "启动全局计时器",
+    "category": "utility",
+    "description": "启动一个全局计时器（不依赖实体），时间到后触发事件",
+    "deprecated": false,
+    "input_count": 2,
+    "output_count": 1,
+    "has_node_params": false
+  },
+  {
+    "type_id": 592,
+    "name": "启动/暂停指定音效播放器",
+    "category": "action",
+    "description": "启动或暂停指定的音效播放器",
+    "deprecated": false,
+    "input_count": 2,
+    "output_count": 1,
+    "has_node_params": false
+  },
+  {
+    "type_id": 595,
+    "name": "启动/暂停玩家背景音乐",
+    "category": "action",
+    "description": "启动或暂停玩家的背景音乐",
+    "deprecated": false,
+    "input_count": 1,
+    "output_count": 1,
+    "has_node_params": false
+  },
+  {
+    "type_id": 597,
+    "name": "修改玩家背景音乐",
+    "category": "action",
+    "description": "修改玩家的背景音乐",
+    "deprecated": false,
+    "input_count": 2,
+    "output_count": 1,
+    "has_node_params": false
+  },
+  {
+    "type_id": 763,
+    "name": "修改环境配置",
+    "category": "action",
+    "description": "修改游戏环境配置参数",
+    "deprecated": false,
+    "input_count": 2,
+    "output_count": 1,
+    "has_node_params": false
+  },
+  {
+    "type_id": 256,
+    "name": "创建投射物",
+    "category": "action",
+    "description": "在场景中创建一个投射物",
+    "deprecated": false,
+    "input_count": 4,
+    "output_count": 2,
+    "has_node_params": false
+  },
+  {
+    "type_id": 200079,
+    "name": "有限循环",
+    "category": "loop",
+    "description": "执行指定次数的循环（客户端版本）",
+    "deprecated": false,
+    "input_count": 2,
+    "output_count": 2,
+    "has_node_params": false
+  },
+  {
+    "type_id": 200080,
+    "name": "跳出循环",
+    "category": "loop",
+    "description": "跳出当前循环（客户端版本）",
+    "deprecated": false,
+    "input_count": 0,
+    "output_count": 1,
+    "has_node_params": false
+  },
+  {
+    "type_id": 7,
+    "name": "获取随机浮点数",
+    "category": "math",
+    "description": "生成指定范围内的随机浮点数",
+    "deprecated": false,
+    "input_count": 2,
+    "output_count": 1,
+    "has_node_params": false
+  },
+  {
+    "type_id": 8,
+    "name": "权重随机",
+    "category": "math",
+    "description": "根据权重列表随机选择一个索引",
+    "deprecated": false,
+    "input_count": 1,
+    "output_count": 1,
+    "has_node_params": false
+  },
+  {
+    "type_id": 9,
+    "name": "拆分三维向量",
+    "category": "math",
+    "description": "将三维向量拆分为三个浮点数分量 (x, y, z)",
+    "deprecated": false,
+    "input_count": 1,
+    "output_count": 3,
+    "has_node_params": false
+  },
+  {
+    "type_id": 10,
+    "name": "三维向量加法",
+    "category": "math",
+    "description": "两个三维向量相加",
+    "deprecated": false,
+    "input_count": 2,
+    "output_count": 1,
+    "has_node_params": false
+  },
+  {
+    "type_id": 11,
+    "name": "三维向量减法",
+    "category": "math",
+    "description": "两个三维向量相减",
+    "deprecated": false,
+    "input_count": 2,
+    "output_count": 1,
+    "has_node_params": false
+  },
+  {
+    "type_id": 12,
+    "name": "三维向量缩放",
+    "category": "math",
+    "description": "对三维向量进行缩放（乘以一个浮点数）",
+    "deprecated": false,
+    "input_count": 2,
+    "output_count": 1,
+    "has_node_params": false
+  },
+  {
+    "type_id": 13,
+    "name": "三维向量夹角",
+    "category": "math",
+    "description": "计算两个三维向量之间的夹角（弧度）",
+    "deprecated": false,
+    "input_count": 2,
+    "output_count": 1,
+    "has_node_params": false
+  },
+  {
+    "type_id": 250,
+    "name": "修改实体阵营",
+    "category": "action",
+    "description": "修改实体的阵营",
+    "deprecated": false,
+    "input_count": 3,
+    "output_count": 1,
+    "has_node_params": false
+  },
+  {
+    "type_id": 283,
+    "name": "复苏玩家所有角色",
+    "category": "action",
+    "description": "复活玩家所有已死亡的角色",
+    "deprecated": false,
+    "input_count": 3,
+    "output_count": 1,
+    "has_node_params": false
+  },
+  {
+    "type_id": 586,
+    "name": "实体添加单位标签",
+    "category": "action",
+    "description": "给实体添加一个单位标签，用于分组和筛选",
+    "deprecated": false,
+    "input_count": 3,
+    "output_count": 1,
+    "has_node_params": false
+  },
+  {
+    "type_id": 587,
+    "name": "实体移除单位标签",
+    "category": "action",
+    "description": "从实体移除一个单位标签",
+    "deprecated": false,
+    "input_count": 3,
+    "output_count": 1,
+    "has_node_params": false
+  },
+  {
+    "type_id": 588,
+    "name": "实体清空单位标签",
+    "category": "action",
+    "description": "清除实体的所有单位标签",
+    "deprecated": false,
+    "input_count": 2,
+    "output_count": 1,
+    "has_node_params": false
+  },
+  {
+    "type_id": 602,
+    "name": "嘲讽目标",
+    "category": "action",
+    "description": "让一个实体嘲讽另一个实体",
+    "deprecated": false,
+    "input_count": 3,
+    "output_count": 1,
+    "has_node_params": false
+  },
+  {
+    "type_id": 947,
+    "name": "查询角色当前移动速度",
+    "category": "utility",
+    "description": "查询角色的当前移动速度",
+    "deprecated": false,
+    "input_count": 1,
+    "output_count": 2,
+    "has_node_params": false
+  },
+  {
+    "type_id": 1298,
+    "name": "以键对字典移除键值对",
+    "category": "action",
+    "description": "从字典中移除指定键的键值对",
+    "deprecated": false,
+    "input_count": 3,
+    "output_count": 1,
+    "has_node_params": false
+  },
+  {
+    "type_id": 200042,
+    "name": "节点图开始",
+    "category": "event",
+    "description": "客户端节点图的开始节点",
+    "deprecated": false,
+    "input_count": 0,
+    "output_count": 1,
+    "has_node_params": false
+  },
+  {
+    "type_id": 200043,
+    "name": "筛选球体范围内的实体列表",
+    "category": "condition",
+    "description": "筛选球体范围内的实体列表",
+    "deprecated": false,
+    "input_count": 4,
+    "output_count": 1,
+    "has_node_params": false
+  },
+  {
+    "type_id": 200044,
+    "name": "筛选方形范围内的实体列表",
+    "category": "condition",
+    "description": "筛选方形范围内的实体列表",
+    "deprecated": false,
+    "input_count": 6,
+    "output_count": 1,
+    "has_node_params": false
+  },
+  {
+    "type_id": 200103,
+    "name": "查询实体是否在场",
+    "category": "condition",
+    "description": "检查实体是否在场（未被销毁）",
+    "deprecated": false,
+    "input_count": 1,
+    "output_count": 1,
+    "has_node_params": false
+  },
+  {
+    "type_id": 66,
+    "name": "设置预设状态",
+    "category": "action",
+    "description": "设置指定目标实体的预设状态",
+    "deprecated": false,
+    "input_count": 4,
+    "output_count": 1,
+    "has_node_params": false
+  },
+  {
+    "type_id": 67,
+    "name": "预设状态变化时",
+    "category": "event",
+    "description": "当实体的预设状态发生变化时触发",
+    "deprecated": false,
+    "input_count": 0,
+    "output_count": 5,
+    "has_node_params": false
+  },
+  {
+    "type_id": 68,
+    "name": "获取预设状态",
+    "category": "utility",
+    "description": "获取实体的当前预设状态值",
+    "deprecated": false,
+    "input_count": 2,
+    "output_count": 1,
+    "has_node_params": false
+  },
+  {
+    "type_id": 72,
+    "name": "实体移除/销毁时",
+    "category": "event",
+    "description": "当实体被移除或销毁时触发",
+    "deprecated": false,
+    "input_count": 0,
+    "output_count": 2,
+    "has_node_params": false
+  },
+  {
+    "type_id": 74,
+    "name": "三维向量归一化",
+    "category": "math",
+    "description": "将三维向量归一化为单位向量",
+    "deprecated": false,
+    "input_count": 1,
+    "output_count": 1,
+    "has_node_params": false
+  },
+  {
+    "type_id": 75,
+    "name": "以GUID查询实体",
+    "category": "utility",
+    "description": "通过 GUID 查询对应的实体",
+    "deprecated": false,
+    "input_count": 1,
+    "output_count": 1,
+    "has_node_params": false
+  },
+  {
+    "type_id": 76,
+    "name": "以实体查询GUID",
+    "category": "utility",
+    "description": "通过实体查询对应的 GUID",
+    "deprecated": false,
+    "input_count": 1,
+    "output_count": 1,
+    "has_node_params": false
+  },
+  {
+    "type_id": 77,
+    "name": "结算关卡",
+    "category": "action",
+    "description": "触发关卡结算（胜利/失败）",
+    "deprecated": false,
+    "input_count": 2,
+    "output_count": 1,
+    "has_node_params": false
+  },
+  {
+    "type_id": 80,
+    "name": "暂停定时器",
+    "category": "utility",
+    "description": "暂停指定名称的定时器",
+    "deprecated": false,
+    "input_count": 3,
+    "output_count": 1,
+    "has_node_params": false
+  },
+  {
+    "type_id": 81,
+    "name": "恢复定时器",
+    "category": "utility",
+    "description": "恢复指定名称的定时器",
+    "deprecated": false,
+    "input_count": 3,
+    "output_count": 1,
+    "has_node_params": false
+  },
+  {
+    "type_id": 82,
+    "name": "终止定时器",
+    "category": "utility",
+    "description": "终止指定名称的定时器",
+    "deprecated": false,
+    "input_count": 3,
+    "output_count": 1,
+    "has_node_params": false
+  },
+  {
+    "type_id": 83,
+    "name": "定时器触发时",
+    "category": "event",
+    "description": "当定时器到达指定时间时触发",
+    "deprecated": false,
+    "input_count": 0,
+    "output_count": 3,
+    "has_node_params": false
+  },
+  {
+    "type_id": 314,
+    "name": "修改全局计时器",
+    "category": "utility",
+    "description": "修改全局计时器的剩余时间",
+    "deprecated": false,
+    "input_count": 4,
+    "output_count": 1,
+    "has_node_params": false
+  },
+  {
+    "type_id": 664,
+    "name": "查询当前环境时间",
+    "category": "utility",
+    "description": "查询当前环境时间",
+    "deprecated": false,
+    "input_count": 0,
+    "output_count": 2,
+    "has_node_params": false
+  },
+  {
+    "type_id": 665,
+    "name": "设置当前环境时间",
+    "category": "action",
+    "description": "设置当前环境时间",
+    "deprecated": false,
+    "input_count": 2,
+    "output_count": 1,
+    "has_node_params": false
+  },
+  {
+    "type_id": 667,
+    "name": "开关实体光源",
+    "category": "action",
+    "description": "开启或关闭实体的光源",
+    "deprecated": false,
+    "input_count": 4,
+    "output_count": 1,
+    "has_node_params": false
+  },
+  {
+    "type_id": 669,
+    "name": "获取碰撞触发器内所有实体",
+    "category": "utility",
+    "description": "获取碰撞触发器范围内的所有实体",
+    "deprecated": false,
+    "input_count": 2,
+    "output_count": 1,
+    "has_node_params": false
+  },
+  {
+    "type_id": 697,
+    "name": "损失生命",
+    "category": "action",
+    "description": "对实体造成生命值损失",
+    "deprecated": false,
+    "input_count": 5,
+    "output_count": 1,
+    "has_node_params": false
+  },
+  {
+    "type_id": 698,
+    "name": "直接恢复生命",
+    "category": "action",
+    "description": "直接恢复实体的生命值",
+    "deprecated": false,
+    "input_count": 4,
+    "output_count": 1,
+    "has_node_params": false
+  },
+  {
+    "type_id": 738,
+    "name": "获取角色属性",
+    "category": "utility",
+    "description": "获取角色的各种属性值",
+    "deprecated": false,
+    "input_count": 1,
+    "output_count": 4,
+    "has_node_params": false
+  },
+  {
+    "type_id": 744,
+    "name": "获取拥有者实体",
+    "category": "utility",
+    "description": "获取实体的拥有者实体（如装备的持有者）",
+    "deprecated": false,
+    "input_count": 1,
+    "output_count": 1,
+    "has_node_params": false
+  },
+  {
+    "type_id": 745,
+    "name": "获取实体拥有的实体列表",
+    "category": "utility",
+    "description": "获取实体所拥有的所有实体列表",
+    "deprecated": false,
+    "input_count": 1,
+    "output_count": 1,
+    "has_node_params": false
+  },
+  {
+    "type_id": 757,
+    "name": "创建元件组",
+    "category": "action",
+    "description": "根据元件组索引创建该元件组内包含的实体",
+    "deprecated": false,
+    "input_count": 8,
+    "output_count": 2,
+    "has_node_params": false
+  }
+]

@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<title>GIA 可视化 - v1_播放特效.gia</title>
+<style>
+body { background:#0d1117; margin:20px; font-family:monospace; color:#ccc; }
+h2 { color:#58a6ff; }
+h3 { color:#8b949e; margin-top:8px; }
+.info { color:#8b949e; font-size:13px; margin-bottom:15px; }
+</style>
+</head>
+<body>
+<h2>📊 v1_播放特效.gia</h2>
+<div class="info">文件: h:\myprojects\genshin_qianxing_editor\tools\live_sync\samples\validation\v1_播放特效.gia | 节点图数: 1 | 生成时间: 2026-05-20 23:50</div>
+
+<div style="display:flex;gap:16px;margin-bottom:16px;font-family:monospace;font-size:12px;">
+<span style="color:#4fc3f7;">● IN_FLOW 输入流程</span>
+<span style="color:#ff8a65;">● OUT_FLOW 输出流程</span>
+<span style="color:#81c784;">● IN_DATA 输入数据</span>
+<span style="color:#ce93d8;">● OUT_DATA 输出数据</span>
+<span style="color:#ff9800;">━ flow 连接线</span>
+<span style="color:#ce93d8;">━ data 连接线</span>
+</div>
+<h3 style="color:#ccc;font-family:monospace;">图: v1_播放特效 (1 节点)</h3><div id="container-0" style="width:100%;height:500px;border:1px solid #333;background:#1a1a2e;border-radius:8px;overflow:hidden;position:relative;margin-bottom:20px;"><svg id="svg-graph-0" width="360.0" height="262.0" style="cursor:grab;display:block;" onmousedown="startPan(event,'svg-graph-0')"><defs>
+<marker id="arrow-0" viewBox="0 0 10 10" refX="10" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+<path d="M0,0 L10,5 L0,10 z" fill="#ff9800"/></marker>
+</defs>
+<rect x="60.0" y="80.0" width="180" height="102" rx="6" fill="#1e1e2e" stroke="#444" stroke-width="1"/>
+<rect x="60.0" y="80.0" width="180" height="22" rx="6" fill="#333" opacity="0.8"/>
+<rect x="60.0" y="92.0" width="180" height="10" fill="#333" opacity="0.8"/>
+<text x="68.0" y="95.0" fill="#ccc" font-size="11" font-family="monospace">枚举匹配 (200005)</text>
+<polygon points="60.0,117.0 74.0,111.0 74.0,123.0" fill="#4fc3f7" stroke="none"/>
+<text x="80.0" y="121.0" fill="#4fc3f7" font-size="9" font-family="monospace" text-anchor="start">入</text>
+<polygon points="60.0,141.0 74.0,135.0 74.0,147.0" fill="#81c784" stroke="none"/>
+<text x="80.0" y="145.0" fill="#81c784" font-size="9" font-family="monospace" text-anchor="start">特效ID</text>
+<polygon points="60.0,165.0 74.0,159.0 74.0,171.0" fill="#81c784" stroke="none"/>
+<text x="80.0" y="169.0" fill="#81c784" font-size="9" font-family="monospace" text-anchor="start">位置</text>
+<polygon points="240.0,189.0 226.0,183.0 226.0,195.0" fill="#ff8a65" stroke="none"/>
+<text x="140.0" y="193.0" fill="#ff8a65" font-size="9" font-family="monospace" text-anchor="end">出</text>
+</svg><div style="position:absolute;top:10px;right:10px;display:flex;gap:4px;"><button onclick="zoomIn('svg-graph-0')" style="background:#333;color:#ccc;border:1px solid #555;padding:4px 8px;cursor:pointer;border-radius:4px;font-size:12px;">🔍+</button><button onclick="zoomOut('svg-graph-0')" style="background:#333;color:#ccc;border:1px solid #555;padding:4px 8px;cursor:pointer;border-radius:4px;font-size:12px;">🔍-</button><button onclick="resetView('svg-graph-0')" style="background:#333;color:#ccc;border:1px solid #555;padding:4px 8px;cursor:pointer;border-radius:4px;font-size:12px;">⟲</button></div></div>
+
+<script>
+let svgState = {};
+
+function initSVG(svgId) {
+    svgState[svgId] = {scale: 1, tx: 0, ty: 0, dragging: false, startX: 0, startY: 0};
+}
+initSVG("svg-graph-0");
+</script>
+<script>
+function startPan(e, svgId) {
+    const svg = document.getElementById(svgId);
+    const state = svgState[svgId];
+    if (!state) return;
+    state.dragging = true;
+    state.startX = e.clientX - state.tx;
+    state.startY = e.clientY - state.ty;
+    svg.style.cursor = 'grabbing';
+
+    function onMove(ev) {
+        if (!state.dragging) return;
+        state.tx = ev.clientX - state.startX;
+        state.ty = ev.clientY - state.startY;
+        applyTransform(svgId);
+    }
+    function onUp() {
+        state.dragging = false;
+        svg.style.cursor = 'grab';
+        window.removeEventListener('mousemove', onMove);
+        window.removeEventListener('mouseup', onUp);
+    }
+    window.addEventListener('mousemove', onMove);
+    window.addEventListener('mouseup', onUp);
+}
+
+function applyTransform(svgId) {
+    const state = svgState[svgId];
+    if (!state) return;
+    const svg = document.getElementById(svgId);
+    svg.style.transform = `translate(${state.tx}px, ${state.ty}px) scale(${state.scale})`;
+    svg.style.transformOrigin = '0 0';
+}
+
+function zoomIn(svgId) {
+    const state = svgState[svgId];
+    if (!state) return;
+    state.scale = Math.min(state.scale * 1.2, 5);
+    applyTransform(svgId);
+}
+
+function zoomOut(svgId) {
+    const state = svgState[svgId];
+    if (!state) return;
+    state.scale = Math.max(state.scale / 1.2, 0.1);
+    applyTransform(svgId);
+}
+
+function resetView(svgId) {
+    const state = svgState[svgId];
+    if (!state) return;
+    state.scale = 1;
+    state.tx = 0;
+    state.ty = 0;
+    applyTransform(svgId);
+}
+
+// 滚轮缩放
+document.getElementById("svg-graph-0").addEventListener('wheel', function(e) {
+    e.preventDefault();
+    const state = svgState["svg-graph-0"];
+    if (!state) return;
+    const factor = e.deltaY < 0 ? 1.1 : 0.9;
+    state.scale = Math.max(0.1, Math.min(5, state.scale * factor));
+    applyTransform("svg-graph-0");
+});
+</script>
+
+</body>
+</html>
