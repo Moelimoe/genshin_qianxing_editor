@@ -1,0 +1,16 @@
+# 临时开发脚本（README 声明非项目交付物）
+_scratch/
+
+# 生成的可视化 HTML
+**/viz/
+
+# 生成的 GIA 文件（测试样本和示例输出）
+samples/level_demo/*.gia
+samples/level_demo/TreasureHunt_Demo.gia
+samples/examples/*.gia
+samples/ref_viz*.html
+samples/test_*.gia
+
+# Python 缓存
+__pycache__/
+*.pyc
