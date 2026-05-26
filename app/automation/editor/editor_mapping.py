@@ -39,9 +39,24 @@ from app.automation.vision.ui_profile_params import get_node_view_size_px
 from engine.graph.models.graph_model import GraphModel, NodeModel
 from app.automation.editor import editor_nodes
 from app.automation.editor import executor_utils as _exec_utils
+from engine.configs.settings import settings
 
 MIN_SCALE_RATIO = 1e-6
-FIXED_SCALE_RATIO = 1.0
+
+
+def _get_scale_ratio() -> float:
+    """获取当前缩放比例。
+
+    - UI_DPI_SCALE_MODE="auto"：返回 1.0（后续可扩展为自动检测）
+    - UI_DPI_SCALE_MODE="manual"：使用 UI_DPI_SCALE_MANUAL 的值
+    """
+    if settings.UI_DPI_SCALE_MODE == "manual":
+        return max(0.5, min(3.0, float(settings.UI_DPI_SCALE_MANUAL)))
+    return 1.0
+
+
+# 保留兼容性：FIXED_SCALE_RATIO 现在是一个函数调用
+FIXED_SCALE_RATIO = _get_scale_ratio()
 
 
 def _is_phase_correlation_motion_reasonable(

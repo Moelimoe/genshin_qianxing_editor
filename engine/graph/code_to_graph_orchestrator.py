@@ -68,12 +68,20 @@ class CodeToGraphParser:
                 if '/' in node_def.name:
                     self._composite_defs_by_class.setdefault(node_def.name.replace('/', ''), node_def)
 
+        # composite_id 反向索引：O(1) 查找 composite NodeDef，避免全量扫描 node_library
+        self._composite_id_index: Dict[str, NodeDef] = {
+            node_def.composite_id: node_def
+            for node_def in node_library.values()
+            if getattr(node_def, "is_composite", False) and node_def.composite_id
+        }
+
         # IR 环境与上下文
         self._env = VarEnv()
         self._validators = Validators()
         self._factory_ctx = IRFactoryContext(
             node_library=self.node_library,
             node_name_index=self.node_name_index,
+            composite_id_index=self._composite_id_index,
             verbose=self.verbose,
         )
 

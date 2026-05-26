@@ -40,9 +40,16 @@ class ClassFormatParser:
         self.node_library = node_library
         self.verbose = verbose
         self.node_name_index = node_name_index_from_library(node_library)
+        # composite_id 反向索引：O(1) 查找 composite NodeDef
+        self._composite_id_index: Dict[str, NodeDef] = {
+            node_def.composite_id: node_def
+            for node_def in (node_library or {}).values()
+            if getattr(node_def, "is_composite", False) and node_def.composite_id
+        }
         self._factory_ctx = IRFactoryContext(
             node_library,
             self.node_name_index,
+            self._composite_id_index,
             verbose,
         )
         # 实例字段别名映射：attr_name -> 入口形参名（例如 "_定时器标识" -> "定时器标识"）

@@ -12,7 +12,7 @@ from engine.graph.common import (
     CLIENT_LEGACY_LOCAL_FILTER_GRAPH_DIRNAME,
     get_graph_category_from_folder_path,
 )
-from engine.graph.models import EdgeModel, GraphModel, NodeDefRef, NodeModel, PortModel
+from engine.graph.models import EdgeModel, GraphModel, NodeModel, PortModel
 
 from .flow_builder_assignment_handlers import (
     handle_annassign_stmt,
@@ -33,17 +33,7 @@ from .validators import Validators
 from .var_env import VarEnv
 
 
-def _resolve_builtin_node_def_ref_by_title(title: str, *, ctx: FactoryContext) -> NodeDefRef:
-    title_text = str(title or "").strip()
-    full_key = ctx.node_name_index.get(title_text)
-    if not full_key:
-        raise ValueError(f"无法从 node_name_index 解析节点 key：{title_text}")
-    node_def = ctx.node_library.get(full_key)
-    if node_def is None:
-        raise KeyError(f"node_library 中未找到 NodeDef：{full_key}")
-    from engine.nodes import get_canonical_node_def_key
-
-    return NodeDefRef(kind="builtin", key=get_canonical_node_def_key(node_def))
+from .node_factory import resolve_builtin_node_def_ref_by_title as _resolve_builtin_node_def_ref_by_title
 
 
 def parse_method_body(

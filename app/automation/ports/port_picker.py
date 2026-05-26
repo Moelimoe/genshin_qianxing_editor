@@ -24,6 +24,9 @@ from app.automation.editor import executor_utils as _exec_utils
 from app.automation import capture as editor_capture
 from app.automation.input import win_input
 
+# 显式常量：表示端口未找到的哨兵值（避免与合法坐标 (0,0) 冲突）
+PORT_NOT_FOUND: Tuple[int, int] = (-1, -1)
+
 
 def filter_screen_port_candidates(
     ports_all: List[Any],
@@ -532,7 +535,7 @@ def pick_port_center_for_node(
     - ports_list: 可选的预识别端口列表，避免重复识别
 
     返回：
-    - (center_x, center_y) 或 (0, 0) 表示未找到
+    - (center_x, center_y) 或 PORT_NOT_FOUND (-1, -1) 表示未找到
     """
     log = _exec_utils.make_executor_log_fn(executor, log_callback)
 
@@ -579,5 +582,5 @@ def pick_port_center_for_node(
                 return center_retry
 
     log("[端口定位] 无可用候选")
-    return (0, 0)
+    return PORT_NOT_FOUND
 

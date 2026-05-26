@@ -502,7 +502,10 @@ class PortMatchingService:
             self.logger.log("定位", "回退缩放估计异常（结果趋近0），放弃本次重估")
             return None
 
+        # 保存旧状态，以便重估失败时回滚
         old_s = float(self.executor.scale_ratio or FIXED_SCALE_RATIO)
+        old_origin = self.executor.origin_node_pos
+
         self.executor.scale_ratio = FIXED_SCALE_RATIO
         if passed_side == "src":
             self.executor.origin_node_pos = (
@@ -530,6 +533,10 @@ class PortMatchingService:
             debug=src_debug2,
             detected_nodes=frame_state.ensure_detected_nodes(),
         ):
+            # 刷新失败，回滚状态
+            self.executor.scale_ratio = old_s
+            self.executor.origin_node_pos = old_origin
+            self.logger.log("定位", "重估后源节点刷新失败，回滚坐标映射")
             return None
         if not dst_snapshot.refresh(
             reason="连接/目标-重估",
@@ -538,6 +545,10 @@ class PortMatchingService:
             debug=dst_debug2,
             detected_nodes=frame_state.ensure_detected_nodes(),
         ):
+            # 刷新失败，回滚状态
+            self.executor.scale_ratio = old_s
+            self.executor.origin_node_pos = old_origin
+            self.logger.log("定位", "重估后目标节点刷新失败，回滚坐标映射")
             return None
         src_bbox2 = src_snapshot.node_bbox
         dst_bbox2 = dst_snapshot.node_bbox
@@ -545,7 +556,10 @@ class PortMatchingService:
         dst_ok2 = _is_within_position_threshold(self.executor, dst_bbox2, dst_node.pos)
         if src_ok2 and dst_ok2:
             return src_bbox2, dst_bbox2, src_debug2, dst_debug2
-        self.logger.log("定位", "重估后仍未能同时定位到两端，放弃回退")
+        # 重估后仍失败，回滚状态
+        self.executor.scale_ratio = old_s
+        self.executor.origin_node_pos = old_origin
+        self.logger.log("定位", "重估后仍未能同时定位到两端，回滚坐标映射并放弃")
         return None
 
     def ensure_valid_bboxes(
@@ -754,13 +768,14 @@ class PortMatchingService:
             list_ports_for_bbox_func=list_ports_for_bbox,
         )
 
-        if src_center == (0, 0) or dst_center == (0, 0):
+        from app.automation.ports.port_picker import PORT_NOT_FOUND
+        if src_center == PORT_NOT_FOUND or dst_center == PORT_NOT_FOUND:
             self._log_trace(
                 "端口",
                 "未能定位端口",
                 screenshot_token=id(screenshot),
-                src_found=src_center != (0, 0),
-                dst_found=dst_center != (0, 0),
+                src_found=src_center != PORT_NOT_FOUND,
+                dst_found=dst_center != PORT_NOT_FOUND,
                 src_candidates_total=len(src_ports_all),
                 dst_candidates_total=len(dst_ports_all),
             )

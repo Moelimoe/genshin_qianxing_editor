@@ -101,6 +101,12 @@ def validate_graph_model(
     node_library = dict(node_library or {})
     scope_text = str((getattr(model, "metadata", None) or {}).get("graph_type") or "").strip().lower()
 
+    # composite_id 反向索引：O(1) 查找 composite NodeDef，避免全量扫描 node_library
+    _composite_id_index: Dict[str, NodeDef] = {
+        nd.composite_id: nd for nd in node_library.values()
+        if getattr(nd, "is_composite", False) and getattr(nd, "composite_id", "")
+    }
+
     # 端口类型覆盖（GraphModel.metadata.port_type_overrides）：
     # - 由 Graph Code 注解、结构体/字典推断、以及布局增强（如【获取局部变量】relay）写入；
     # - 结构校验在判定“枚举端口连线”等强约束时必须优先考虑覆盖，
@@ -129,13 +135,11 @@ def validate_graph_model(
                 raise KeyError(f"node_library 中未找到 builtin NodeDef：{key}")
             return found
         if kind == "composite":
-            # key 为 composite_id：禁止通过 title/name 模糊匹配
-            for _, node_def in node_library.items():
-                if not getattr(node_def, "is_composite", False):
-                    continue
-                if str(getattr(node_def, "composite_id", "") or "") == key:
-                    return node_def
-            raise KeyError(f"node_library 中未找到 composite NodeDef（composite_id={key}）")
+            # key 为 composite_id：通过反向索引 O(1) 查找
+            found = _composite_id_index.get(key)
+            if found is None:
+                raise KeyError(f"node_library 中未找到 composite NodeDef（composite_id={key}）")
+            return found
         if kind == "event":
             # 事件入口：默认不在节点库中；端口类型由 GraphModel/overrides 承载。
             #

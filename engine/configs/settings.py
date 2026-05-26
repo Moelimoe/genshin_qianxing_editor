@@ -465,6 +465,23 @@ class Settings:
     # 供自动化底层统一使用，避免各处硬编码不同的重试次数。
     REAL_EXEC_MAX_VERIFY_ATTEMPTS: int = 3
     
+    # ========== DPI / 分辨率适配 ==========
+    # 说明：不同显示器 DPI 设置（100%/125%/150%/175%/200%）会影响编辑器 UI 的像素尺寸，
+    # 进而影响自动化中的坐标换算、截图差分校验等行为。
+    # 默认 "auto"：根据系统 DPI 自动计算（推荐）
+    # 也可手动设置为具体倍率：1.0, 1.25, 1.5, 1.75, 2.0 等
+    UI_DPI_SCALE_MODE: str = "auto"
+    # 强制覆盖的 DPI 倍率（仅在 UI_DPI_SCALE_MODE="manual" 时生效）
+    UI_DPI_SCALE_MANUAL: float = 1.0
+
+    # 连线拖拽验证的像素窗口大小（随 DPI 自动缩放）
+    # 基础值（100% DPI 下）：half_window_px=24/40，min_mean_abs_diff=1.2/1.0
+    # 实际值 = 基础值 * DPI倍率
+    CONNECT_VERIFY_BASE_HALF_WINDOW_PX_SMALL: int = 24
+    CONNECT_VERIFY_BASE_HALF_WINDOW_PX_LARGE: int = 40
+    CONNECT_VERIFY_BASE_MIN_DIFF_SMALL: float = 1.2
+    CONNECT_VERIFY_BASE_MIN_DIFF_LARGE: float = 1.0
+
     # ========== 指纹消歧（重名邻域） ==========
     # 是否启用基于"邻域相对距离指纹"的重名消歧（仅影响识别几何拟合前的候选过滤）
     FINGERPRINT_ENABLED: bool = True

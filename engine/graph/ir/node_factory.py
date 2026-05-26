@@ -37,6 +37,7 @@ from .composite_builder import create_composite_node_from_instance_call
 class FactoryContext:
     node_library: Dict[str, NodeDef]
     node_name_index: Dict[str, str]
+    composite_id_index: Dict[str, NodeDef]
     verbose: bool = False
     # Graph Code 的作用域（server/client），用于在 IR 层处理“同名节点在不同 scope 下端口不兼容”的语义分支
     # （例如：局部变量建模的【获取/设置局部变量】在 server/client 下端口名不同）。
@@ -46,6 +47,23 @@ class FactoryContext:
     graph_folder_path: str = ""
     # 注意：语义元数据（signal_bindings/struct_bindings）不在 IR 层写入，
     # 统一由 `engine.graph.semantic.GraphSemanticPass` 在更高层的明确阶段生成。
+
+
+def resolve_builtin_node_def_ref_by_title(title: str, *, ctx: FactoryContext) -> NodeDefRef:
+    """根据节点标题解析内置 node_def_ref（跨 IR 子模块共享）。
+
+    从 ctx.node_name_index 查找 title 对应的节点 library 全限定 key，
+    再从 ctx.node_library 获取 NodeDef 并构造稳定引用 NodeDefRef(kind="builtin")。
+    找不到时抛出 ValueError/KeyError。
+    """
+    title_text = str(title or "").strip()
+    full_key = ctx.node_name_index.get(title_text)
+    if not full_key:
+        raise ValueError(f"无法从 node_name_index 解析节点 key：{title_text}")
+    node_def = ctx.node_library.get(full_key)
+    if node_def is None:
+        raise KeyError(f"node_library 中未找到 NodeDef：{full_key}")
+    return NodeDefRef(kind="builtin", key=get_canonical_node_def_key(node_def))
 
 
 def _build_node_def_ref(node_def: NodeDef) -> NodeDefRef:

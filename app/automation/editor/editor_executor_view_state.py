@@ -112,10 +112,12 @@ class EditorExecutorViewStateMixin:
         # 同步清理“视口识别阶段”缓存的首帧截图与检测结果，避免在视口变化后误用旧画面。
         self._last_recognition_screenshot = None
         self._last_recognition_detected = None
-        # 视口变化会使“基于点击 ROI 识别得到的节点快照预热”整体失效
+        # 视口变化会使"基于点击 ROI 识别得到的节点快照预热"整体失效
         prefilled_cache = getattr(self, "_prefilled_node_ports_snapshots", None)
         if isinstance(prefilled_cache, dict):
             prefilled_cache.clear()
+        # 视口变化后缩放一致性标记需要重新检查
+        self.zoom_50_confirmed = False
 
     def mark_view_changed(self, reason: str = "") -> None:
         """标记视口发生变化，由执行步骤或上层在拖拽/缩放后调用。"""

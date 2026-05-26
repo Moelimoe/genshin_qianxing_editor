@@ -8,8 +8,7 @@ import ast
 import uuid
 from typing import List, Optional, Tuple, Union
 
-from engine.graph.models import GraphModel, NodeModel, PortModel, EdgeModel, NodeDefRef
-from engine.nodes import get_canonical_node_def_key
+from engine.graph.models import GraphModel, NodeModel, PortModel, EdgeModel
 from .var_env import VarEnv
 from .validators import Validators
 from .node_factory import FactoryContext, extract_constant_value
@@ -17,15 +16,7 @@ from .edge_router import is_flow_node, is_event_node
 from .branch_builder import find_first_flow_node, block_has_return
 
 
-def _resolve_builtin_node_def_ref_by_title(title: str, *, ctx: FactoryContext) -> NodeDefRef:
-    title_text = str(title or "").strip()
-    full_key = ctx.node_name_index.get(title_text)
-    if not full_key:
-        raise ValueError(f"无法从 node_name_index 解析节点 key：{title_text}")
-    node_def = ctx.node_library.get(full_key)
-    if node_def is None:
-        raise KeyError(f"node_library 中未找到 NodeDef：{full_key}")
-    return NodeDefRef(kind="builtin", key=get_canonical_node_def_key(node_def))
+from .node_factory import resolve_builtin_node_def_ref_by_title as _resolve_builtin_node_def_ref_by_title
 
 
 def extract_range_params(iter_node: ast.Call) -> Tuple[Union[int, str, None], Union[int, str, None]]:

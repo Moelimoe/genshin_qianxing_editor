@@ -55,7 +55,7 @@ MAX_PAIR_ALIGN_ATTEMPTS = 2
 
 @dataclass(frozen=True)
 class _ConnectDragVerifySpec:
-    """拖拽后校验策略：用截图差分确认“画面确实发生了连线变化”。"""
+    """拖拽后校验策略：用截图差分确认"画面确实发生了连线变化"。"""
 
     half_window_px: int
     min_mean_abs_diff: float
@@ -65,6 +65,36 @@ _CONNECT_DRAG_VERIFY_SPECS: tuple[_ConnectDragVerifySpec, ...] = (
     _ConnectDragVerifySpec(half_window_px=24, min_mean_abs_diff=1.2),
     _ConnectDragVerifySpec(half_window_px=40, min_mean_abs_diff=1.0),
 )
+
+
+def _get_dpi_scale() -> float:
+    """获取当前 DPI 缩放倍率。
+
+    - UI_DPI_SCALE_MODE="auto"：尝试从系统获取 DPI（当前简化实现返回 1.0，后续可扩展）
+    - UI_DPI_SCALE_MODE="manual"：使用 UI_DPI_SCALE_MANUAL 的值
+    """
+    from engine.configs.settings import settings
+
+    if settings.UI_DPI_SCALE_MODE == "manual":
+        return max(0.5, min(3.0, float(settings.UI_DPI_SCALE_MANUAL)))
+    # TODO: 实现系统 DPI 检测（ctypes 调用 GetDeviceCaps 或 PyQt6 QScreen）
+    return 1.0
+
+
+def _get_connect_verify_specs() -> tuple[tuple[int, float], tuple[int, float]]:
+    """获取 DPI 适配后的连线验证规格。
+
+    返回: ((small_half_window, small_min_diff), (large_half_window, large_min_diff))
+    """
+    from engine.configs.settings import settings
+
+    scale = _get_dpi_scale()
+    small_half = int(settings.CONNECT_VERIFY_BASE_HALF_WINDOW_PX_SMALL * scale)
+    large_half = int(settings.CONNECT_VERIFY_BASE_HALF_WINDOW_PX_LARGE * scale)
+    # min_diff 随 DPI 略微调整（高 DPI 下像素更密集，阈值可适当降低）
+    small_diff = settings.CONNECT_VERIFY_BASE_MIN_DIFF_SMALL / scale
+    large_diff = settings.CONNECT_VERIFY_BASE_MIN_DIFF_LARGE / scale
+    return ((small_half, small_diff), (large_half, large_diff))
 
 
 def execute_add_variadic_inputs(
@@ -478,7 +508,8 @@ def _connect_nodes(
         executor.log(message, log_callback)
 
     def _drag_callable(x1: int, y1: int, x2: int, y2: int) -> None:
-        post_release_sleep = 0.0 if _exec_utils.is_fast_chain_runtime_enabled(executor) else None
+        # 明确传递 float 值，避免 None 导致的潜在类型问题
+        post_release_sleep = 0.0 if _exec_utils.is_fast_chain_runtime_enabled(executor) else 0.0
         editor_capture.drag_left_button(
             x1,
             y1,
@@ -488,6 +519,11 @@ def _connect_nodes(
         )
 
     def _verify_drag_effect() -> bool:
+        """拖拽后画面差分校验。
+
+        返回 True 表示画面确实发生了连线变化（差分达标）；
+        返回 False 表示无法确认连线成功（截图失败或差分未达到阈值）。
+        """
         if not _exec_utils.is_fast_chain_runtime_enabled(executor):
             executor.wait_with_hooks(
                 total_seconds=0.08,
@@ -504,10 +540,10 @@ def _connect_nodes(
         )
         if not after_image:
             executor.log(
-                "⚠ [连接] 拖拽后截图失败，无法验证连线结果；按约定视为成功（连线步骤不做可靠验收）",
+                "✗ [连接] 拖拽后截图失败，无法验证连线结果",
                 log_callback,
             )
-            return True
+            return False
 
         src_pt = (int(src_center[0]), int(src_center[1]))
         dst_pt = (int(dst_center[0]), int(dst_center[1]))
@@ -518,28 +554,30 @@ def _connect_nodes(
         points = (src_pt, mid_pt, dst_pt)
 
         best_score = 0.0
-        for spec in _CONNECT_DRAG_VERIFY_SPECS:
+        # 使用 DPI 适配后的验证规格
+        specs = _get_connect_verify_specs()
+        for half_window_px, min_mean_abs_diff in specs:
             for pt in points:
                 score = mean_abs_diff_in_region(
                     screenshot,
                     after_image,
                     pt,
-                    half=int(spec.half_window_px),
+                    half=half_window_px,
                 )
                 if score > best_score:
                     best_score = float(score)
-            if best_score >= float(spec.min_mean_abs_diff):
+            if best_score >= min_mean_abs_diff:
                 executor.log(
-                    f"[连接] 拖拽后画面变化校验通过：best_diff={best_score:.3f} >= {float(spec.min_mean_abs_diff):.3f}（half={int(spec.half_window_px)}）",
+                    f"[连接] 拖拽后画面变化校验通过：best_diff={best_score:.3f} >= {min_mean_abs_diff:.3f}（half={half_window_px}）",
                     log_callback,
                 )
                 return True
 
         executor.log(
-            f"⚠ [连接] 拖拽后画面变化未达到阈值：best_diff={best_score:.3f}（可能是差分校验误报；按约定视为成功）",
+            f"✗ [连接] 拖拽后画面变化未达到阈值：best_diff={best_score:.3f}，无法确认连线成功",
             log_callback,
         )
-        return True
+        return False
 
     description = f"{src_node.title}.{src_port_name or '?'} → {dst_node.title}.{dst_port_name or '?'}"
     return perform_connection_drag(

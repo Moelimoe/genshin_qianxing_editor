@@ -240,7 +240,16 @@ def create_composite_node_from_instance_call(
         # 检查类名是否包含在实例属性名中，或者实例属性名包含在类名中
         node_name_lower = node_def.name.lower().replace('_', '').replace('-', '')
         attr_lower = instance_attr.lower().replace('_', '').replace('-', '')
-        if node_name_lower in attr_lower or attr_lower in node_name_lower:
+        # 修复 #5：使用更严格的匹配规则，要求名称完全相等或包含关系明确
+        # 避免 "运算" 误匹配 "向量运算" 等问题
+        if node_name_lower == attr_lower:
+            target_node_def = node_def
+            break
+        # 子串匹配仅当一方是另一方的完整单词边界时才允许
+        if attr_lower.startswith(node_name_lower + '_') or attr_lower.endswith('_' + node_name_lower):
+            target_node_def = node_def
+            break
+        if node_name_lower.startswith(attr_lower + '_') or node_name_lower.endswith('_' + attr_lower):
             target_node_def = node_def
             break
     

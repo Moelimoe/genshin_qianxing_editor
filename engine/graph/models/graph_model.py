@@ -254,19 +254,26 @@ class GraphModel:
         # 元数据（所属模板、实例、信号绑定、结构体绑定等）
         self.metadata: Dict[str, Any] = {}
         self._next_id = 1
-        
+
         # 双向无痛编辑：用户自定义信息
         self.event_flow_comments: Dict[int, str] = {}  # 事件流注释 {event_flow_index: comment_text}
         self.preserve_formatting: bool = True  # 是否保留用户格式（默认True）
-        
+
         # 事件流顺序：保存事件节点ID的顺序列表，用于保持生成代码时的事件流顺序一致
         self.event_flow_order: List[str] = []  # 事件节点ID列表，按原始文件中的出现顺序
         # 事件流标题顺序：保存事件标题（名称）的顺序，作为ID缺失或变更时的稳定回退
         self.event_flow_titles: List[str] = []  # 事件标题列表，按原始文件中的顺序
-        
+
         # 基本块列表：用于可视化显示（半透明矩形框）
         self.basic_blocks: List[BasicBlock] = []  # 基本块列表
-        
+
+        # 边查重索引：O(1) 查询 (src_node, src_port, dst_node, dst_port) 是否存在
+        # 在 add_edge/remove_edge/remove_node 时维护
+        self._edge_lookup_set: set[tuple[str, str, str, str]] = set()
+        # 端口连接索引：O(1) 查询指定端口是否有连接
+        # key: (node_id, port_name, is_input), value: bool（存在性标记）
+        self._port_connection_index: dict[tuple[str, str, bool], bool] = {}
+
         # 自动生成ID（如果未提供）
         if not self.graph_id:
             self.graph_id = datetime.now().strftime("graph_%Y%m%d_%H%M%S_%f")
@@ -306,19 +313,19 @@ class GraphModel:
         edge_id = self.gen_id("edge")
         edge = EdgeModel(id=edge_id, src_node=src_node, src_port=src_port, dst_node=dst_node, dst_port=dst_port)
         self.edges[edge_id] = edge
+        # 维护查重索引
+        self._edge_lookup_set.add((src_node, src_port, dst_node, dst_port))
+        # 维护端口连接索引
+        self._port_connection_index[(src_node, src_port, False)] = True
+        self._port_connection_index[(dst_node, dst_port, True)] = True
         self._touch_edges_revision()
         return edge
-    
+
     def add_edge_if_absent(self, src_node: str, src_port: str, dst_node: str, dst_port: str) -> Optional[EdgeModel]:
         """若相同连线不存在则添加，否则返回None。"""
-        for existing_edge in self.edges.values():
-            if (
-                existing_edge.src_node == src_node
-                and existing_edge.src_port == src_port
-                and existing_edge.dst_node == dst_node
-                and existing_edge.dst_port == dst_port
-            ):
-                return None
+        # O(1) 查重
+        if (src_node, src_port, dst_node, dst_port) in self._edge_lookup_set:
+            return None
         return self.add_edge(src_node, src_port, dst_node, dst_port)
     
     # -------- 信号绑定辅助（GraphModel.metadata["signal_bindings"]）--------
@@ -402,30 +409,30 @@ class GraphModel:
         # remove edges connected
         to_del = [eid for eid, e in self.edges.items() if e.src_node == node_id or e.dst_node == node_id]
         for eid in to_del:
-            self.edges.pop(eid, None)
+            edge = self.edges.pop(eid, None)
+            if edge:
+                # 维护查重索引
+                self._edge_lookup_set.discard((edge.src_node, edge.src_port, edge.dst_node, edge.dst_port))
+                # 维护端口连接索引（移除后需要检查是否还有其他边使用同一端口）
+                self._port_connection_index.pop((edge.src_node, edge.src_port, False), None)
+                self._port_connection_index.pop((edge.dst_node, edge.dst_port, True), None)
         self.nodes.pop(node_id, None)
         if to_del:
             self._touch_edges_revision()
     
     def has_port_connections(self, node_id: str, port_name: str, is_input: bool) -> bool:
         """检查指定端口是否有连线
-        
+
         Args:
             node_id: 节点ID
             port_name: 端口名称
             is_input: 是否为输入端口
-            
+
         Returns:
             是否有连线连接到该端口
         """
-        for edge in self.edges.values():
-            if is_input:
-                if edge.dst_node == node_id and edge.dst_port == port_name:
-                    return True
-            else:
-                if edge.src_node == node_id and edge.src_port == port_name:
-                    return True
-        return False
+        # O(1) 查询端口连接索引
+        return self._port_connection_index.get((node_id, port_name, is_input), False)
     
     def remove_port_connections(self, node_id: str, port_name: str, is_input: bool) -> List[str]:
         """删除指定端口的所有连线
